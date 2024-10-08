@@ -1,1 +1,148 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+:root {
+  --Background: #282C33;
+  --DivBackground: #b1b1b1;
+  --Main: #12F7D6;
+  --Text: #ffffff;
+  --TerminalBackground: #191919;
+  --TerminalFontColor: #FFFFFF;
+  --TerminalChevron: #12f7d6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-size: 62.5%;
+  background-color: var(--Background);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh
+}
+
+h1 {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  font-size: 8rem;
+  color: var(--Text);
+  font-family: "New Amsterdam", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.5rem;
+  border-bottom: var(--Main) 0 solid;
+  border-radius: 0 0.3em;
+  padding-left: 0.05em;
+  padding-right: 0.05em;
+  margin: 0;
+  transition: color 0.3s;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--Main);
+    transform: translateY(100%);
+    transition: transform 0.3s, background-color 0.3s;
+    z-index: -1;
+  }
+
+  &:hover::before {
+    transform: translateY(0);
+    background-color: var(--Main);
+  }
+
+  &:hover {
+    color: var(--Background);
+  }
+}
+
+a {
+  font-size: 2rem;
+  color: var(--Main);
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-bottom: var(--Main) 0 solid;
+  border-radius: 0 0.3em;
+  padding-left: 0.05em;
+  padding-right: 0.05em;
+  margin: 0;
+  transition: color 0.3s;
+  z-index: 2;
+  text-decoration: var(--Main);
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--Background);
+    transform: translateY(100%);
+    transition: transform 0.3s, background-color 0.3s;
+    z-index: -1;
+    text-decoration: var(--Main);
+  }
+
+  &:hover::before {
+    transform: translateY(0);
+    background-color: var(--Main);
+  }
+
+  &:hover {
+    color: var(--Background);
+    text-decoration: var(--Main);
+    border: 0 var(--Main) solid;
+  }
+}
+
+p {
+  font-size: 2rem;
+  color: var(--Text);
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.scrollbar {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--Text);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--Main);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}

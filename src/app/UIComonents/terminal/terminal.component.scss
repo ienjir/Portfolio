@@ -1,0 +1,68 @@
+.Terminal {
+  height: 100%;
+  overflow: hidden;
+  padding: 3rem;
+  border-radius: 2rem;
+  background: var(--TerminalBackground);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.Terminal-scroll {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  overflow-y: auto;
+  background: var(--TerminalBackground);
+  font-family: "Fira Code", sans-serif;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.TerminalInputDiv {
+  flex-direction: column;
+  font-size: 2rem;
+  display: inline-flex;
+  left: 0;
+  position: relative;
+}
+
+.TerminalInputDivArrow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+
+  svg {
+    height: 1.5rem;
+    aspect-ratio: 11/20;
+    width: auto;
+  }
+}
+
+.TerminalInput {
+  border: none;
+  background: none;
+  width: 100%;
+  font-size: 2rem;
+  color: var(--Text);
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+
+  &:focus-visible {
+    border: none;
+    outline: none;
+  }
+
+}
+
+.TerminalOutputItem {
+  margin-bottom: 1.5rem;
+}

@@ -1,0 +1,27 @@
+<div class="Terminal" (click)="terminalFocus()" (keydown.arrowUp)="inputHistoryUp()" (keyup.arrowDown)="inputHistoryDown()">
+  <div class="Terminal-scroll scrollbar" #Terminal [scrollTop]="Terminal.scrollHeight">
+    <div class="TerminalOutput">
+      <div *ngFor="let item of output"
+           [innerHtml]="item"
+           class="TerminalOutputItem">
+      </div>
+    </div>
+    <div class="TerminalInputDiv">
+      <p>{{ defaultText }}</p>
+      <div class="TerminalInputDivArrow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="40" viewBox="0 0 22 40" fill="none">
+          <g clip-path="url(#clip0_169_191)">
+            <path d="M2 2L19.9994 19.9994" stroke="#12F7D6" stroke-width="3" stroke-linecap="round"/>
+            <path d="M2 38L19.9994 20.0006" stroke="#12F7D6" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_169_191">
+              <rect width="22" height="40" fill="white"/>
+            </clipPath>
+          </defs>
+        </svg>
+        <input #TerminalInput [(ngModel)]="input" type="text" class="TerminalInput" (keyup.enter)="handleCommand()">
+      </div>
+    </div>
+  </div>
+</div>
