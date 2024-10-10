@@ -1,23 +1,40 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'EditableTag',
-  templateUrl: './Editable-tag.component.html',
+  styleUrl: './editable-tag.component.scss',
+  templateUrl: './editable-tag.component.html',
   standalone: true,
-  styleUrl: './Editable-tag.component.scss'
+  imports: [
+    FormsModule
+  ],
 })
 export class EditableTag {
-  selectedTag: string = 'h1';
-  content: string = 'Edit this content';
+  selectedString: string = "h1"
 
-  getFormattedContent() {
-    return `<${this.selectedTag}>${this.content}</${this.selectedTag}>`;
+  @ViewChild('autoResizeInput') inputElement!: ElementRef;
+  @ViewChild('text') text!: ElementRef;
+  @ViewChild('textContainer') textContainer!: ElementRef;
+
+  constructor(private renderer: Renderer2) {
   }
 
-  onTagChange() {
-    const editableElement = document.querySelector('.editable-html');
-    if (editableElement) {
-      this.content = editableElement.textContent || '';
-    }
+  resizeInput(event: Event) {
+    const input = this.inputElement.nativeElement;
+    input.style.width = input.value.length ? `${input.value.length}ch` : '1ch';
+    this.changeTag(this.selectedString)
+  }
+
+  changeTag(newTag: string) {
+    const nativeElement = this.text.nativeElement;
+
+    const newElement = this.renderer.createElement(newTag);
+
+    this.renderer.appendChild(newElement, this.renderer.createText(nativeElement.innerHTML));
+    // Replace the old element with the new one
+    this.renderer.replaceChild(nativeElement.parentNode, newElement, nativeElement);
+
+    this.dynamicElement.nativeElement = newElement;
   }
 }

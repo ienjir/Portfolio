@@ -1,0 +1,25 @@
+.EditableTagMainDiv {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.TagInput {
+  display: inline-flex;
+  text-decoration: none;
+  background: none;
+  border: none;
+  margin: 0;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  color: white;
+}
+
+input[appAutosizeInput] {
+  padding: 5px;
+  min-width: 50px;
+  max-width: 100%;
+  box-sizing: content-box; /* Ensures padding is respected in width calculation */
+  overflow: hidden;
+}
