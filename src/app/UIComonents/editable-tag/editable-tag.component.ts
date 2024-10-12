@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -10,31 +10,45 @@ import {FormsModule} from '@angular/forms';
     FormsModule
   ],
 })
-export class EditableTag {
-  selectedString: string = "h1"
+export class EditableTag implements OnInit{
+  @ViewChild('dynamicContainer', { static: true }) dynamicContainer!: ElementRef;
+  @ViewChild('input') input!: ElementRef;
 
-  @ViewChild('autoResizeInput') inputElement!: ElementRef;
-  @ViewChild('text') text!: ElementRef;
-  @ViewChild('textContainer') textContainer!: ElementRef;
+  currentTag = 'p';
+  dynamicElement!: HTMLElement;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.adjustWidth()
+    this.createDynamicElement();
   }
 
-  resizeInput(event: Event) {
-    const input = this.inputElement.nativeElement;
-    input.style.width = input.value.length ? `${input.value.length}ch` : '1ch';
-    this.changeTag(this.selectedString)
+  protected adjustWidth() {
+    const input = this.input.nativeElement;
+    this.renderer.setStyle(input, 'width', 'auto');
+    this.renderer.setStyle(input, 'width', `${input.scrollWidth}px`);
   }
 
-  changeTag(newTag: string) {
-    const nativeElement = this.text.nativeElement;
+  createDynamicElement() {
+    this.dynamicElement = this.renderer.createElement(this.currentTag);
+    const text = this.renderer.createText('Sample text that will change dynamically');
+    const firstChild = this.dynamicContainer.nativeElement.firstChild
+    this.renderer.appendChild(this.dynamicElement, text);
+    this.renderer.appendChild(this.dynamicContainer.nativeElement, this.dynamicElement);
+    this.renderer.removeChild(this.dynamicContainer, firstChild)
+  }
 
-    const newElement = this.renderer.createElement(newTag);
+  onTagChange() {
+    if (this.currentTag.trim()) {
+      if (this.dynamicElement) {
+        this.renderer.removeChild(this.dynamicContainer.nativeElement, this.dynamicElement);
+      }
 
-    this.renderer.appendChild(newElement, this.renderer.createText(nativeElement.innerHTML));
-    // Replace the old element with the new one
-    this.renderer.replaceChild(nativeElement.parentNode, newElement, nativeElement);
-
-    this.dynamicElement.nativeElement = newElement;
+      this.dynamicElement = this.renderer.createElement(this.currentTag);
+      const text = this.renderer.createText('Sample text that will change dynamically');
+      this.renderer.appendChild(this.dynamicElement, text);
+      this.renderer.appendChild(this.dynamicContainer.nativeElement, this.dynamicElement);
+    }
   }
 }
